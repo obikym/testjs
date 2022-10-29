@@ -6,10 +6,14 @@ const bot = new TelegramApi(token, {polling: true})
 
 const chats = {}
 
-bot.on('message', (msg) => {
-    const { message_id: originalMessageId, from: { username }, chat: { id: chatId } } = msg;
-  
-    bot.sendMessage(chatId, `привет, привет! ${username}`, {
-      reply_to_message_id: originalMessageId
+bot.on('message', async msg => {
+  const text = msg.text;
+  const chatId = msg.chat.id;
+if (text === '/start') {
+  bot.sendMessage(chatId, "привет", {
+    "reply_markup": {
+        "keyboard": [["цукцуауцаца"]]
+        }
     });
-  })
+  }
+})
