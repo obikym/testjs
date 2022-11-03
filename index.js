@@ -11,9 +11,18 @@ bot.on('message', async msg => {
   const chatId = msg.chat.id;
 if (text === '/start') {
   bot.sendMessage(chatId, "привет", {
-    "reply_markup": {
-        "keyboard": [["цукцуауцаца"]]
+    reply_markup: {
+        "keyboard": [["Ввести продажу"]]
         }
     });
   }
 })
+bot.on('message', async msg => {
+  const button = "Ввести продажу";
+  const chatId = msg.chat.id;
+  if (msg.text.indexOf(button) === 0) {
+      bot.sendMessage(chatId, "Введите телефон клиента");
+  }
+  });
+
+  
