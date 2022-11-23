@@ -4,7 +4,7 @@ const token = "5559401316:AAFSI0zmDw34TiwZ2JOMvQ6AZAuIwbKif_k";
 const bot = new TelegramApi(token, { polling: true });
 const chats = {};
 
-var client = { phone: "", name: "" , payment: "" , share: "", pure: "" };
+var client = { phone: "", name: "" , payment: "" , share: "" , pure: ""};
 
 var state = "";
 
@@ -67,38 +67,21 @@ bot.on("message", async (msg) => {
           
       },
   });
+  state = "pure";
    }
 
+   if (state === "pure"){
    bot.on("callback_query", (callbackQuery) => {
-    const msg = callbackQuery.message;
     bot.answerCallbackQuery(callbackQuery.id)
         client.share = callbackQuery.data;
-        state = "pure";
-
-
-        if (state === "pure") {
-          
+        client.pure = client.payment / 100 * Number(client.share)
+        bot.sendMessage(chatId, "Вы заработали - " + client.pure + "р");
+        state = "123"
         
-          if (client.share === "30") {
-          client.pure = client.payment / 100 * 30
-          bot.sendMessage(chatId,"Вы заработали " + client.pure + "р"
-            )
-        }
-        
-        if (client.share === "35") {
-          client.pure = client.payment / 100 * 35
-          bot.sendMessage(chatId,"Вы заработали " + client.pure + "р"
-            )
-        }
-        
-        if (client.share === "40") {
-          client.pure = client.payment / 100 * 40
-          bot.sendMessage(chatId,"Вы заработали " + client.pure + "р"
-            )
-        }}
-
-
   });
-  
-});
+  if (state === "123"){
+    bot.sendMessage(chatId, "test")
+  }
 
+}
+});
